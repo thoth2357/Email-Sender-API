@@ -26,7 +26,7 @@ async def send_mail(request: SmtpSchema):
         )
     return f"email sent successfully"
 
-@router.post("/send/new")
+@router.post("/send")
 async def send_mail(request: SmtpSchema):
     """sends email"""
     sender = create_transport(request.Host, request.Port, request.Username, request.Password)
