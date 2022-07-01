@@ -10,21 +10,18 @@ router = APIRouter(
 @router.post("/send")
 async def send_mail(request: SmtpSchema):
     """sends email"""
-    sender = create_transport(request.Host, request.Port, request.Username, request.Password)
+    sender = create_transport("server224.web-hosting.com", request.Port, "mailman@playpadd.app", "ZX~}m2(l$6Q9")
     if not sender:
         raise HTTPException(
             status_code=500,
             detail="could not create transport for smtp server.check Credentials"
         )
-    message = build_mail(request.From, request.To, request.Subject, request.Body)
+    message = build_mail("mailman@playpadd.app", request.To, request.Subject, request.Body)
     try:
-        sender.sendmail(request.From, request.To, message)
+        sender.sendmail("mailman@playpadd.app", request.To, message)
+        return f"email sent successfully"
     except Exception:
         raise HTTPException(
             status_code=500,
             detail="could not send email"
         )
-    return f"email sent successfully"
-
-
-
